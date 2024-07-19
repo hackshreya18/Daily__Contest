@@ -1,4 +1,7 @@
-vector<long long> ans;
+class Solution {
+public:
+    vector<long long> findPrefixScore(vector<int>& nums) {
+        vector<long long> ans;
         
         int maxi=nums[0];
         
@@ -11,3 +14,5 @@ vector<long long> ans;
             ans[i]+=ans[i-1];
         }
         return ans;
+    }
+};
