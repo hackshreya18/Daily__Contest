@@ -1,0 +1,13 @@
+vector<long long> ans;
+        
+        int maxi=nums[0];
+        
+        for(int i=0;i<nums.size();i++){
+            maxi=max(maxi,nums[i]);
+            ans.push_back(maxi+nums[i]);
+        }
+        
+        for(int i=1;i<ans.size();i++){
+            ans[i]+=ans[i-1];
+        }
+        return ans;
