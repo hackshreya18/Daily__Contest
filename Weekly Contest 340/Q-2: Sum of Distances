@@ -1,0 +1,26 @@
+class Solution {
+public:
+    typedef long long ll;
+    vector<long long> distance(vector<int>& nums) {
+        int n=nums.size();
+        unordered_map<int,vector<int>>mp;
+
+        for(int i=0;i<n;i++){
+            mp[nums[i]].push_back(i);
+        }
+
+        vector<ll >ans(n,0);
+
+        for(auto [_,v]:mp){
+            ll sum=accumulate(v.begin(),v.end(),0ll);
+            ll cummu=0,s=v.size();
+
+            for(int i=0;i<s;i++){
+                ll res=(2*i-s)* 1ll*v[i]-2*cummu+sum;
+                ans[v[i]]=res;
+                cummu+=v[i];
+            }
+        }
+        return ans;
+    }
+};
