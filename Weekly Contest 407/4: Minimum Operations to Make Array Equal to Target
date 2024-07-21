@@ -1,0 +1,50 @@
+class Solution {
+public:
+    typedef long long ll;
+    long long minimumOperations(vector<int>& nums, vector<int>& target) {
+        int n=nums.size();
+        
+        vector<ll>a(n);
+        
+        for(int i=0;i<nums.size();i++){
+            a[i]=nums[i]-target[i];
+        }
+        ll ans=0;
+        for(int i=0;i<n;i++){
+            ll mini=INT_MAX;
+            
+            if(a[i]<0){
+                mini=abs(a[i]);
+                int j=i+1;
+                while( j<n && a[j]<0){
+                    mini=min(mini,abs(a[j]));
+                    j++;
+                }
+                ans+=mini;
+                for(int k=i;k<j;k++){
+                    a[k]+=mini;
+                }
+                i--;
+            }
+            
+            else if(a[i]>0){
+                mini=abs(a[i]);
+                int j=i+1;
+                while( j<n && a[j]>0){
+                    mini=min(mini,a[j]);
+                    j++;
+                }
+                ans+=mini;
+                for(int k=i;k<j;k++){
+                    a[k]-=mini;
+                }
+                i--;
+            }
+            else{//0
+                continue;
+            }
+        }
+        
+        return ans;
+    }
+};
