@@ -1,0 +1,35 @@
+class Solution {
+public:
+    bool primeSubOperation(vector<int>& nums) {
+        int n=*max_element(nums.begin(),nums.end());
+        vector<int>sieve(n+1,true);
+        
+        vector<int>prime;
+        sieve[0]=false;
+        sieve[1]=false;
+        for(int i=2;i<=n;i++){
+            if(sieve[i]){
+                prime.push_back(i);
+                for(int j=i*2;j<=n;j+=i){
+                    sieve[j]=false;
+                }
+            }
+        }
+        
+        for(int i=nums.size()-2;i>=0;i--){
+            if(nums[i]<nums[i+1])continue;
+            bool f=0;
+            for(int j=0;j<prime.size();j++){
+                if(prime[j]<nums[i] && nums[i]-prime[j]<nums[i+1] ){
+                    f=1;
+                    nums[i]=nums[i]-prime[j];;
+                    break;
+                }
+            }
+            if(f==0){
+                return false;
+            }
+        }
+        return true;
+    }
+};
