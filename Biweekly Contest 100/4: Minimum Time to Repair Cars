@@ -1,0 +1,32 @@
+class Solution {
+public:
+    bool check(long long m,vector<int>& ranks, long long cars){
+        long long cnt=0;
+        for(auto it:ranks){
+            cnt+=sqrt (m/it) ;
+            if(cnt>=cars)return true;
+        }
+        return cnt>=cars;
+    }
+    long long repairCars(vector<int>& ranks,int cars) {
+        int mini=*min_element(ranks.begin(),ranks.end());
+        long long l=1;
+        long long h=mini*1LL*cars*cars;
+
+        long long ans=h;
+
+        while(l<=h){
+            long long m=l+(h-l)/2;
+            if(check(m,ranks,cars)){
+                ans=m;
+                h=m-1;
+            }
+            else{
+                l=m+1;
+            }
+        }
+
+        return ans;
+    }
+};
+
