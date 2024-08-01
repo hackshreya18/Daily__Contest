@@ -1,0 +1,35 @@
+class Solution {
+public:
+    int distMoney(int money, int children) {
+        if(money < children)return -1;
+        int n=children;
+        vector<int>a(n,1);
+        
+        money-=children;
+        
+        int ans=0;
+        for(int i=0;i<n && money;i++){
+            
+            if(i!=n-1 && money>=7){
+                a[i]+=7;
+                money-=7;
+            }
+            else {
+                a[i]+=money;
+                money=0;
+            }
+        }
+        
+        for(int i=0;i<n;i++){
+            if(a[i]==8){
+                ans++;
+            }
+        }
+        
+        if(a[n-1]==4){
+            ans--;
+        }
+        
+        return ans;
+    }
+};
