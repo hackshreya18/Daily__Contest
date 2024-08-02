@@ -1,0 +1,13 @@
+class Solution {
+public:
+    int vowelStrings(vector<string>& words, int left, int right) {
+        vector<int>a={'a','e','i','o','u'};
+        int ans=0;
+        for(int i=left;i<=right;i++){
+            if(find(a.begin(),a.end(),words[i][0])!=a.end() && find(a.begin(),a.end(),words[i][words[i].length()-1])!=a.end()){
+                ans++;
+            }
+        }
+        return ans;
+    }
+};
