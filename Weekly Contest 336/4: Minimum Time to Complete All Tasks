@@ -1,0 +1,34 @@
+class Solution {
+public:
+    static bool comp(vector<int>&a,vector<int> &b){
+        return a[1]<b[1];
+    }
+    
+    int findMinimumTime(vector<vector<int>>& tasks) {
+         sort(tasks.begin(),tasks.end(),comp);
+        
+        vector<int> visited(2000,-1);
+        
+        int ans=0;
+        for(int i=0;i<tasks.size();i++){
+            
+            int end = tasks[i][1] , start=tasks[i][0] , moves=tasks[i][2];
+            
+            for(int j=end;j>=start and moves ;j--){
+                if(visited[j-1]==1) moves--;
+            }
+            
+            for(int j=end;j>=start && moves;j--){
+                if(visited[j-1]==-1){
+                    ans++;
+                    visited[j-1]=1;
+                    moves--;
+                }
+            }
+            
+        }
+            
+        return ans;
+        
+    }
+};
