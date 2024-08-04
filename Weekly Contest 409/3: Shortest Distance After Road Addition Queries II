@@ -1,0 +1,28 @@
+class Solution {
+public:
+    vector<int> shortestDistanceAfterQueries(int n, vector<vector<int>>& queries) {
+    vector<int> distances(n, 0);
+    vector<int> result;
+    set<int> validCities;
+    
+    
+    for (int i = 0; i < n; ++i) {
+        validCities.insert(i);
+    }
+    
+    
+    for (const auto& query : queries) {
+        int startCity = query[0];
+        int endCity = query[1];
+        
+        auto lowerBound = validCities.lower_bound(startCity + 1);
+        auto upperBound = validCities.lower_bound(endCity);
+        
+        validCities.erase(lowerBound, upperBound);
+        
+        result.push_back(validCities.size() - 1);
+    }
+    
+    return result;
+    }
+};
