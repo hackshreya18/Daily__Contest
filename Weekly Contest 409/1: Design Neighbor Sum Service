@@ -1,0 +1,64 @@
+class neighborSum {
+    private:
+    vector<vector<int>> grid;
+    unordered_map<int,pair<int, int>> mp;
+public:
+    
+    neighborSum(vector<vector<int>>& grid) :grid(grid) {
+        int n = grid.size();
+        for (int i=0; i<n; ++i) {
+            for (int j = 0; j < n; ++j) {
+                mp[grid[i][j]] = {i, j};
+            }
+        }
+    }
+    
+    int adjacentSum(int value) {
+        if (mp.find(value)==mp.end()) return 0;
+        
+        int sum = 0;
+        int row = mp[value].first;
+        int col = mp[value].second;
+        int n = grid.size();
+        
+        vector<pair<int, int>>d = {{-1, 0}, {0, -1}, {0, 1}, {1, 0}};
+        
+        for (auto& dir : d) {
+            int newRow = row+dir.first;
+            int newCol = col+dir.second;
+            if (newRow >= 0 && newRow<n && newCol>=0 && newCol < n) {
+                sum += grid[newRow][newCol];
+            }
+        }
+        
+        return sum;
+    }
+    
+    int diagonalSum(int value) {
+        if (mp.find(value) == mp.end()) return 0;
+        
+        int sum = 0;
+        int row = mp[value].first;
+        int col = mp[value].second;
+        int n = grid.size();
+        
+        vector<pair<int, int>> d = {{-1, -1}, {-1, 1}, {1, -1}, {1, 1}};
+        
+        for (auto& dir : d) {
+            int newRow = row + dir.first;
+            int newCol = col + dir.second;
+            if (newRow >= 0 && newRow < n && newCol>=0 && newCol < n) {
+                sum += grid[newRow][newCol];
+            }
+        }
+        
+        return sum;
+    }
+};
+
+/**
+ * Your neighborSum object will be instantiated and called as such:
+ * neighborSum* obj = new neighborSum(grid);
+ * int param_1 = obj->adjacentSum(value);
+ * int param_2 = obj->diagonalSum(value);
+ */
