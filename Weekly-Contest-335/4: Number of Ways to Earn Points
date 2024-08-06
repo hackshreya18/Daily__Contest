@@ -1,0 +1,31 @@
+class Solution {
+public:
+    int m=1e9+7;
+
+    int solve(vector<vector<int>>&dp,int target, vector<vector<int>>& types,int i,int sum){
+        if(sum==target){
+            return 1;
+        }
+        if(sum>target)return 0;
+
+        if(i>=types.size())return 0;
+
+        if(dp[i][sum]!=-1)return dp[i][sum];
+
+        int r=0;
+        int marks=0;
+
+        for(int k=0;k<=types[i][0];k++){
+            r=(r+solve(dp,target,types,i+1,sum+marks))%m;
+            marks+=types[i][1];
+        }
+
+        return dp[i][sum]=r;
+    }
+
+    int waysToReachTarget(int target, vector<vector<int>>& types) {
+        vector<vector<int>>dp(51,vector<int>(1001,-1));
+
+        return solve(dp,target,types,0,0);
+    }
+};
