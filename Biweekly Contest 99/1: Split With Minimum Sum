@@ -1,0 +1,25 @@
+class Solution {
+public:
+    int splitNum(int num) {
+        string p=to_string(num);
+        
+        int l=p.length();
+        
+        sort(p.begin(),p.end());
+        
+        string a="";
+        string b="";
+        
+        for(int i=0;i<l;i++){
+            a+=p[i];
+            i++;
+            if(i<l){
+                b+=p[i];
+            }
+        }
+        
+        int ans=stoi(a)+stoi(b);
+        
+        return ans;
+    }
+};
