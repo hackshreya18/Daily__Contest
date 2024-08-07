@@ -1,0 +1,28 @@
+class Solution {
+    
+public:
+    int m=1e9+7;
+    int countWays(vector<vector<int>>& ranges) {
+        sort(ranges.begin(),ranges.end());
+        
+        int noOver=1;
+        int e=ranges[0][1];
+        int s=ranges[0][0];
+        
+        for(int i=1;i<ranges.size();i++){
+            if(ranges[i][0]>e){
+                noOver++;
+            }
+            e=max(e,ranges[i][1]);
+        }
+        
+        long long ans=1;
+        int i=0;
+        while(i<noOver){
+            ans=(ans*2)%m;
+            i++;
+        }
+        
+        return ans;
+    }
+};
