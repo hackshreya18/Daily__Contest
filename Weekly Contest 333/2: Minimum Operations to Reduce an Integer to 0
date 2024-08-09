@@ -1,0 +1,17 @@
+class Solution {
+public:
+    int minOperations(int n) {
+        if(n==0)return 0;
+        int l=floor(log2(n));
+        int h=ceil(log2(n));
+        
+        int low=n-pow(2,l);
+        int high=pow(2,h)-n;
+        
+        if(low<high){
+            return 1+minOperations(low);
+        }
+        
+        return 1+minOperations(high);
+    }
+};
