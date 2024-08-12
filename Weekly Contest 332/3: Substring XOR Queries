@@ -1,0 +1,26 @@
+class Solution {
+public:
+    vector<vector<int>> substringXorQueries(string s, vector<vector<int>>& queries) {
+        unordered_map<int, vector<int>> h;
+        for (int i = 1; i < 31; i++) {
+            for (int j = 0; j + i <= s.size(); j++) {
+                auto v = bitset<32>(s.substr(j, i)).to_ulong();
+                if (auto f = h.find(v); f == h.end()) {
+                    h[v] = {j, i + j - 1};
+                }
+            }
+        }
+        vector<vector<int>> ans;
+        ans.reserve(queries.size());
+        for (const auto& q : queries) {
+            auto qq = q[0] ^ q[1];
+            if (auto f = h.find(qq); f != h.end()) {
+                ans.push_back(f->second);
+            } else {
+                ans.push_back({-1, -1});
+            }
+        }
+        return ans;       
+        }
+    
+};
