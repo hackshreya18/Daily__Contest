@@ -1,0 +1,44 @@
+class Solution {
+public:
+    long long minCost(vector<int>& basket1, vector<int>& basket2) {
+        unordered_map<long long,long long>mp;
+        
+        int minval=INT_MAX;
+        int n=basket1.size();
+        for(int i=0;i<n;i++){
+            mp[basket1[i]]++;
+            mp[basket2[i]]--;
+            if(mp[basket2[i]]==0){
+                mp.erase(basket2[i]);
+            }
+            minval=min({minval,basket1[i],basket2[i]});
+        }
+        
+        long long ans=0;
+
+        vector<int> ex1, ex2; 
+
+        for(auto &it:mp){
+            if(it.second%2==1)return -1;
+            
+            while(it.second>0){
+                ex1.push_back(it.first);
+                it.second-=2;
+            }
+            while(it.second<0){
+                ex2.push_back(it.first);
+                it.second+=2;
+            }
+        }
+        
+        if(ex1.size()!=ex2.size())return -1;
+
+        sort(ex1.begin(),ex1.end());
+        sort(ex2.begin(),ex2.end(),greater<>());
+
+        for(int i=0;i<ex1.size();i++){
+            ans+=min({2*minval,ex1[i],ex2[i]});
+        }
+        return ans;
+    }
+};
