@@ -1,0 +1,38 @@
+class Solution {
+public:
+    int countPairs(vector<int>& nums) {
+        int ans=0;
+        
+        for(int i=0;i<nums.size()-1;i++){
+            string s=to_string(nums[i]);
+            for(int j=i+1;j<nums.size();j++){
+                
+                string p=to_string(nums[j]);
+                
+                if(s.length()<p.length()){
+                    s=string(p.length()-s.length(),'0')+s;
+                }
+                else if(s.length()>p.length()){
+                    p=string(s.length()-p.length(),'0')+p;
+                }
+                
+                vector<int>v;
+                
+                for(int i=0;i<s.length();i++){
+                    if(s[i]!=p[i]){
+                        v.push_back(i);
+                    }
+                }
+                
+                if(v.size()==0)ans++;
+                
+                else if(v.size()==2){
+                    swap(p[v[0]],p[v[1]]);
+                    if(s==p)ans++;
+                }
+            }
+        }
+        
+        return ans;
+    }
+};
