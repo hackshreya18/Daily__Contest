@@ -1,0 +1,10 @@
+class Solution {
+public:
+    bool isReachable(int a, int b) {
+        int g=__gcd(a,b);
+        while(g%2==0){
+            g/=2;
+        }
+        return g==1;
+    }
+};
