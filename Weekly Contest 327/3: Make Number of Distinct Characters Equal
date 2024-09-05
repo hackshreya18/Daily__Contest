@@ -1,0 +1,23 @@
+class Solution {
+public:
+    bool isItPossible(string word1, string word2) {
+        int ct1[26] = {};
+        int ct2[26] = {};
+        for (char c: word1) ct1[c-'a']++;
+        for (char c: word2) ct2[c-'a']++;
+        for (int i = 0; i < 26; i++) {
+            for (int j = 0; j < 26; j++) {
+                if (ct1[i] && ct2[j]) {
+                   ct1[i]--, ct1[j]++;
+                    ct2[i]++, ct2[j]--;
+                    if (count(begin(ct1), end(ct1), 0) == count(begin(ct2), end(ct2), 0))
+                        return true;
+                   
+                    ct1[i]++, ct1[j]--;
+                    ct2[i]--, ct2[j]++;
+                }
+            }
+        }
+        return false;
+    }
+};
