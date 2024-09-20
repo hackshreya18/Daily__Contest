@@ -1,0 +1,51 @@
+class Solution {
+public:
+    vector<int>r={0,1,0,-1};
+    vector<int>c={1,0,-1,0};
+    bool findSafeWalk(vector<vector<int>>& grid, int health) {
+        int n=grid.size();
+        int m=grid[0].size();
+        
+        vector<vector<pair<int,int>>>vis(n,vector<pair<int,int>>(m,{0,0}));
+        if(grid[0][0]==1){
+            vis[0][0]={1,health-1};
+        }
+        else{
+            vis[0][0]={1,health};
+        }
+        queue<pair<int,int>>q;
+        q.push({0,0});
+        
+        while(!q.empty()){
+            int i=q.front().first;
+            int j=q.front().second;
+            
+            q.pop();
+            
+            for(int k=0;k<4;k++){
+                int ni=i+r[k];
+                int nc=j+c[k];
+                
+                if(ni>=0 && ni<n && nc>=0 && nc<m){
+                    if(grid[ni][nc]==0){
+                        if(vis[ni][nc].second<vis[i][j].second){
+                            vis[ni][nc].first=1;
+                            vis[ni][nc].second=vis[i][j].second;
+                            q.push({ni,nc});
+                        } 
+                    }
+                    else{
+                        if(vis[ni][nc].second<vis[i][j].second-1){
+                            vis[ni][nc].first=1;
+                            vis[ni][nc].second=vis[i][j].second-1;
+                            q.push({ni,nc});
+                        }
+                    }
+                }
+            }
+            
+        }
+        
+        return vis[n-1][m-1].second > 0;
+    }
+};
